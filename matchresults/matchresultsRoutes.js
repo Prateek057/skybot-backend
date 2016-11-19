@@ -16,7 +16,7 @@ function matchresultsRoutes() {
     //router.post('/unregister', passport.authenticate('jwt', {session: false}), userController.unregister);
 
     router.route("/query")
-        .get(matchresultsController.resolveQuery);
+        .post(matchresultsController.resolveQuery);
 
     return router;
 }
