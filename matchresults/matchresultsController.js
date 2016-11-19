@@ -105,6 +105,16 @@ exports.resolveQuery = function(req, res){
         //console.log(matchResultDetails['MatchData']);
 
         res.statusCode= 200;
-        res.json({"results" : result });
+        //res.json({"results" : result });
+
+        var response = {
+            "speech": "He scored 5 goals",
+            "displayText": result,
+            "source": "DuckDuckGo"
+        };
+
+        res.json(response);
+
+
     });
 };
