@@ -105,6 +105,6 @@ exports.resolveQuery = function(req, res){
         //console.log(matchResultDetails['MatchData']);
 
         res.statusCode= 200;
-        res.json({"results" : matchResults });
+        res.json({"results" : result });
     });
 };
