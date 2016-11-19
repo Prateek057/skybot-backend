@@ -7,13 +7,13 @@ exports.resolveQuery = function(req, res){
         "timestamp":"2016-11-19T14:14:13.856Z",
         "result":{
             "source":"agent",
-            "resolvedQuery":"How many assists did Lahm have?",
+            "resolvedQuery":"Which player has the highest number of tackles so far?",
             "action":"",
             "actionIncomplete":false,
             "parameters":{
                 "player_actions":"goal assist",
                 "player_name":"Philipp Lahm",
-                "quantifier":"How  many"
+                "quantifier":"Which player"
             },
             "contexts":[
 
@@ -46,14 +46,63 @@ exports.resolveQuery = function(req, res){
             return;
         }
 
-        //console.log(matchResults);
+        var request = req.data;
 
+        var parameters = request.result.parameters;
+
+        var quantifier = parameters.quantifier.toLowerCase();
+
+        var playerNames = ['Phillip Lahm','Thomas Müller','Robert Lewandowski', 'David Alaba', 'Thiago Alcántara',
+                           'Arjen Robben', 'Douglas Costa', 'Arturo Vidal', 'Xabi Alonso']
+
+        var result = "";
+
+        if(quantifier.indexOf('which')>-1){
+            var num = getRandomInt(0,8);
+            console.log(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
+            result = playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num;
+        }else{
+            var num;
+            if((parameters.quantifier.indexOf('goal')>-1)||(parameters.quantifier.indexOf('assist'))>-1){
+                num = getRandomInt(0,3);
+            } else {
+                num = getRandomInt(0,7);
+            }
+            console.log(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
+            var result = parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.";
+
+        }
+
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+
+        /*var matchResultDetails;
 
         for(matchResult in matchResults)
         {
-            var matchResultDetails = matchResults[matchResult];
-            console.log(matchResultDetails);
-        }
+            matchResultDetails = matchResults[matchResult];
+            var soccerFeed = matchResultDetails.SoccerFeed[0];
+
+            console.log(soccerFeed);
+            //console.log(soccerFeed.SoccerDocument);
+
+            /!*for(feed in soccerFeed){
+                console.log(feed);
+            }*!/
+
+
+            /!*for(var detail in matchResultDetails){
+                console.log(detail);
+            }*!/
+        }*/
+
+        //console.log(matchResultDetails.SoccerFeed[0]);
+
+        //console.log(matchResultDetails['MatchData']);
 
         res.statusCode= 200;
         res.json({"results" : matchResults });
