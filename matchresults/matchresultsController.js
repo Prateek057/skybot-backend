@@ -69,7 +69,7 @@ exports.resolveQuery = function(req, res){
                 num = getRandomInt(0,7);
             }
             console.log(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
-            var result = parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.";
+            result = parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.";
 
         }
 
