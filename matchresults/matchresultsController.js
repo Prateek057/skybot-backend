@@ -2,7 +2,7 @@ var MatchResults = require('./matchresultsSchema');
 
 exports.resolveQuery = function(req, res){
 
-    req.data = {
+    /*req.data = {
         "id":"9c10023e-c52a-4c98-ad22-2a69018eff0e",
         "timestamp":"2016-11-19T14:14:13.856Z",
         "result":{
@@ -38,8 +38,8 @@ exports.resolveQuery = function(req, res){
             "code":200,
             "errorType":"success"
         }
-    };
-    //console.log(req.data.result.parameters);
+    };*/
+
     MatchResults.find(function(err, matchResults) {
         if (err) {
             res.status(500).send(err);
@@ -79,36 +79,11 @@ exports.resolveQuery = function(req, res){
             return Math.floor(Math.random() * (max - min)) + min;
         }
 
-
-        /*var matchResultDetails;
-
-        for(matchResult in matchResults)
-        {
-            matchResultDetails = matchResults[matchResult];
-            var soccerFeed = matchResultDetails.SoccerFeed[0];
-
-            console.log(soccerFeed);
-            //console.log(soccerFeed.SoccerDocument);
-
-            /!*for(feed in soccerFeed){
-                console.log(feed);
-            }*!/
-
-
-            /!*for(var detail in matchResultDetails){
-                console.log(detail);
-            }*!/
-        }*/
-
-        //console.log(matchResultDetails.SoccerFeed[0]);
-
-        //console.log(matchResultDetails['MatchData']);
-
         res.statusCode= 200;
-        //res.json({"results" : result });
+
 
         var response = {
-            "speech": "He scored 5 goals",
+            "speech": result,
             "displayText": result,
             "source": "DuckDuckGo"
         };
