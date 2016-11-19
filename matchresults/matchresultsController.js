@@ -2,7 +2,7 @@ var MatchResults = require('./matchresultsSchema');
 
 exports.resolveQuery = function(req, res){
 
-    /*req.data = {
+    req.data = {
         "id":"9c10023e-c52a-4c98-ad22-2a69018eff0e",
         "timestamp":"2016-11-19T14:14:13.856Z",
         "result":{
@@ -38,13 +38,15 @@ exports.resolveQuery = function(req, res){
             "code":200,
             "errorType":"success"
         }
-    };*/
+    };
 
     MatchResults.find(function(err, matchResults) {
         if (err) {
             res.status(500).send(err);
             return;
         }
+
+        console.log(req);
 
         var request = req.data;
 
