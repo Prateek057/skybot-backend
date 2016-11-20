@@ -1,4 +1,5 @@
 module.exports = matchresultsRoutes;
+//var app = express();
 
 function matchresultsRoutes() {
 
@@ -15,8 +16,15 @@ function matchresultsRoutes() {
 
     //router.post('/unregister', passport.authenticate('jwt', {session: false}), userController.unregister);
 
-    router.route("/query")
-        .post(matchresultsController.resolveQuery);
+
+    /*app.post('/query', function(req, res) {
+        console.log(req.body);
+        //color = req.body.color;
+        // ...
+    });*/
+
+    /*router.route("/query")
+        .post(matchresultsController.resolveQuery);*/
 
     return router;
 }
