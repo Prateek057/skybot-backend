@@ -47,14 +47,18 @@ app.post('/query', function(req,res) {
     var quantifier = parameters.quantifier.toLowerCase();
 
     var playerNames = ['Phillip Lahm','Thomas Müller','Robert Lewandowski', 'David Alaba', 'Thiago Alcántara',
-        'Arjen Robben', 'Douglas Costa', 'Arturo Vidal', 'Xabi Alonso']
+        'Arjen Robben', 'Douglas Costa', 'Arturo Vidal', 'Xabi Alonso'];
 
-    var result = "";
+    var result = [];
 
     if(quantifier.indexOf('which')>-1){
         var num = getRandomInt(0,8);
+        var param = getRandomInt(0,2);
         console.log(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
-        result = playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num;
+        result.push(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
+        result.push(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
+        result.push(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
+        //result = playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num;
     }else{
         var num;
         if((parameters.quantifier.indexOf('goal')>-1)||(parameters.quantifier.indexOf('assist'))>-1){
@@ -63,7 +67,10 @@ app.post('/query', function(req,res) {
             num = getRandomInt(0,7);
         }
         console.log(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
-        result = parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.";
+        result.push(parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.");
+        result.push(parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.");
+        result.push(parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.");
+        //result = parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.";
 
     }
 
@@ -79,7 +86,7 @@ app.post('/query', function(req,res) {
     var response = {
         "speech": result,
         "displayText": result,
-        "source": "DuckDuckGo"
+        "source": "SkyCheck"
     };
 
     res.json(response);
