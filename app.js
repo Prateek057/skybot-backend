@@ -21,6 +21,8 @@ var cors = require('cors');
 
 var app = express();
 
+var dateFormat = require('dateformat');
+
 /**
  * app setup
  */
@@ -49,16 +51,43 @@ app.post('/query', function(req,res) {
     var playerNames = ['Phillip Lahm','Thomas Müller','Robert Lewandowski', 'David Alaba', 'Thiago Alcántara',
         'Arjen Robben', 'Douglas Costa', 'Arturo Vidal', 'Xabi Alonso'];
 
-    var result = [];
+    var result = "";
 
     if(quantifier.indexOf('which')>-1){
         var num = getRandomInt(0,8);
         var param = getRandomInt(0,2);
         console.log(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
-        result.push(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
-        result.push(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
-        result.push(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
-        //result = playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num;
+        result = playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num;
+    }else if(quantifier.indexOf('what happened')>-1){
+        var num;
+
+        var curTime = new Date();
+        var tmpTime = curTime;
+
+        var tmpTime1 = new Date(curTime);
+        tmpTime1.setMinutes(curTime.getMinutes()-1);
+
+        var tmpTime2 = new Date(curTime);
+        tmpTime2.setMinutes(curTime.getMinutes()-2);
+
+
+        var tim1 = dateFormat(tmpTime, "yyyy-mm-dd h:MM:ss");
+        var tim2 = dateFormat(tmpTime1, "yyyy-mm-dd h:MM:ss");
+        var tim3 = dateFormat(tmpTime2, "yyyy-mm-dd h:MM:ss");
+
+        if((parameters.quantifier.indexOf('goal')>-1)||(parameters.quantifier.indexOf('assist'))>-1){
+            num = getRandomInt(0,3);
+        } else {
+            num = getRandomInt(0,7);
+        }
+
+        var tmp1 = tim1 + " " + playerNames[8] + " put in a good cross. Good chance!!!";
+        var tmp2 = tim2 + " " + playerNames[7] + " lost possession.";
+        var tmp3 = tim3 + " " + playerNames[6] + " made a good tackle.";
+
+        console.log(result);
+        result = tmp1 + "\n" + tmp2 + "\n" + tmp3 + "\n";
+
     }else{
         var num;
         if((parameters.quantifier.indexOf('goal')>-1)||(parameters.quantifier.indexOf('assist'))>-1){
@@ -67,11 +96,7 @@ app.post('/query', function(req,res) {
             num = getRandomInt(0,7);
         }
         console.log(playerNames[num]+" has the highest number of "+parameters.player_actions+" so far with "+num);
-        result.push(parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.");
-        result.push(parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.");
-        result.push(parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.");
-        //result = parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.";
-
+        result = parameters.player_name + " has " + num + " number of " +parameters.player_actions +" so far.";
     }
 
     function getRandomInt(min, max) {
